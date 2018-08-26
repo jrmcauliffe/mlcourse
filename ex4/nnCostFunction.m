@@ -37,7 +37,8 @@ end
 
          
 % You need to return the following variables correctly 
-J = sum((sum(-yy .* log(a2) - (1 - yy) .* log(1 - a2)))) / m; 
+J = sum((sum(-yy .* log(a2) - (1 - yy) .* log(1 - a2)))) / m  + ...
+    (lambda / (2 * m)) * (sum((Theta1(:,2:end) .* Theta1(:,2:end))(:)) + sum((Theta2(:,2:end) .* Theta2(:,2:end))(:))); 
      
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));

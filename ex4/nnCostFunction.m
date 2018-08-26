@@ -25,8 +25,20 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 % Setup some useful variables
 m = size(X, 1);
          
+         
+a1 = sigmoid(Theta1 * [ones(m, 1), X]')';
+a2 = sigmoid(Theta2 * [ones(m, 1), a1]')';
+
+% Convert y values in to matrix where 1 is set at the y value in each row
+yy = zeros(m, num_labels);
+for i = 1:m;
+  yy(i,y(i,1)) = 1;
+end         
+
+         
 % You need to return the following variables correctly 
-J = 0;
+J = sum((sum(-yy .* log(a2) - (1 - yy) .* log(1 - a2)))) / m; 
+     
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
 
